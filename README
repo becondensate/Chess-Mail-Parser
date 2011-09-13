@@ -1,0 +1,4 @@
+The goal is to write the gui in Tkx to have options for major and minor keys and flat or sharp notes returned. 
+The program needs a checkbox added so the user can pick whether they want sharp or flat notes (line 141).
+As you can see there is also lots of extraneous commented out code that could be removed.
+The test programs were quick tests to see if something worked or not.
