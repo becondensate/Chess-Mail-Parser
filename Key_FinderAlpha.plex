@@ -1,0 +1,161 @@
+#!/usr/bin/perl
+use warnings;
+#use strict;
+
+use Tkx;
+my $key_entry;
+my @meters;
+#@meters = "Some text yo!";
+my $mw = Tkx::widget->new(".");
+Tkx::wm_title(".", "Key Finder");
+Tkx::ttk__frame(".c",  -padding => "3 3 12 12");
+Tkx::grid( ".c", -column => 0, -row => 0, -sticky => "nwes");
+Tkx::grid_columnconfigure( ".", 0, -weight => 1); 
+Tkx::grid_rowconfigure(".", 0, -weight => 1);
+
+Tkx::ttk__entry(".c.key", -width => 7, -textvariable => \$key_entry);
+Tkx::grid(".c.key", -column => 3, -row => 3, -sticky => "we");
+
+Tkx::ttk__button(".c.calc", -text => "Get Key", -command => sub {Get_Key();}); #sub in this row
+Tkx::grid(".c.calc", -column => 5, -row => 3, -sticky => "w");
+
+Tkx::grid( Tkx::ttk__label(".c.flbl", -text => "Enter key to find out the notes: "), -column => 3, -row => 1, -sticky => "w");
+
+print $key_entry;
+if ($choicevar eq "Major#") {
+	print "match fa sho!";
+	}
+	
+foreach (Tkx::SplitList(Tkx::winfo_children(".c"))) { Tkx::grid_configure($_, -padx => 5, -pady => 5); }
+Tkx::focus(".c.key");
+Tkx::bind(".", "<Return>", sub {&Get_Key();}); #sub in this row
+my $choice;
+my $choicevar;
+
+
+$choice = Tkx::widget->new(".c.combo");
+Tkx::ttk__combobox(".c.combo", -textvariable => \$choicevar);
+
+Tkx::grid(".c.combo", -column => 2, -row => 5, -sticky => "we");
+#$choice->g_bind("Major#", sub { script });
+$choice ->configure(-values => "Major# Majorb Minor# Minorb");
+
+
+
+sub script {
+	print "Subscript be workin dis heezy fa sheezy my neezy!!", "\n";
+	}
+#DO NOT MOVE LINES 49-72!!! If you do you have to change $line_co if number conditionals
+
+# A 1 3 5 6 8 10 12 1
+# A# 2 4 6 7 9 11 1 2
+# B 3 5 7 8 10 12 2 3
+# C 4 6 8 9 11 1 3 4
+# C# 5 7 9 10 12 2 4 5
+# D 6 8 10 11 1 3 5 6
+# D# 7 9 11 12 2 4 6 7
+# E 8 10 12 1 3 5 7 8
+# F 9 11 1 2 4 6 8 9
+# F# 10 12 2 3 5 7 9 10
+# G 11 1 3 4 6 8 10 11
+# G# 12 2 4 5 7 9 11 12
+# A 1 3 5 6 8 10 12 1
+# Bb 2 4 6 7 9 11 1 2
+# B 3 5 7 8 10 12 2 3
+# C 4 6 8 9 11 1 3 4
+# Db 5 7 9 10 12 2 4 5
+# D 6 8 10 11 1 3 5 6
+# Eb 7 9 11 12 2 4 6 7
+# E 8 10 12 1 3 5 7 8
+# F 9 11 1 2 4 6 8 9
+# Gb 10 12 2 3 5 7 9 10
+# G 11 1 3 4 6 8 10 11
+# Ab 12 2 4 5 7 9 11 12
+
+my %sharp_notes = (
+	1  => "A",
+	2  => "A\#",
+	3  => "B",
+	4  => "C",
+	5  => "C\#",
+	6  => "D",
+	7  => "D\#",
+	8  => "E",
+	9  => "F",
+	10 => "F\#",
+	11 => "G",
+	12 => "G\#"
+);
+
+my %flat_notes = (
+	1  => "A  ",
+	2  => "Bb ",
+	3  => "B  ",
+	4  => "C  ",
+	5  => "Db ",
+	6  => "D  ",
+	7  => "Eb ",
+	8  => "E  ",
+	9  => "F  ",
+	10 => "Gb ",
+	11 => "G  ",
+	12 => "Ab "
+);
+
+#my $key_entry;
+#my $sorfentry;
+
+#print "Enter key in question: ", "\n";
+#$key_entry = <STDIN>;
+#chomp $key_entry;
+#print "sharps or flats?", "\n";
+#$sorfentry = <STDIN>;
+#chomp $sorfentry;
+
+sub Get_Key {
+
+my @string_elements;
+
+
+my $line_holder;
+
+print $key_entry;
+
+my @array_holder;
+my $line_co;
+$line_co = 0;
+my $z;
+my $boo1 = 0;
+my $boo2;
+ open(SELF, "Key_FinderAlpha.plex");
+    while (<SELF>) {
+	$line_co = $line_co + 1;
+	if ($line_co > 48 && $line_co < 73) {
+	$line_holder = $_;
+		if ($line_holder =~ /(# $key_entry )/){
+		$boo1 = $boo1 +1;
+			if ($boo1 < 2) {			
+			(@array_holder[0..9]) = split(/ /);
+			print "\n", qq(I\tii\tiii\tIV\tV\tvi\tvii\n);
+				for ($z = 2;	$z <= 8; $z += 1) {
+					#if ($choicevar = /Major#/) {   ###need to change this to check box option!!!
+					push @meters, $sharp_notes{$array_holder[$z]}, "\t";
+					#push @num_holder, $split_line;
+					#}
+					#else {
+					#print $flat_notes{$array_holder[$z]}, "\t";
+							#}
+						#}
+					}
+				}
+			}
+		}
+	}
+}	
+	
+print @meters, "\n";
+	
+Tkx::ttk__label(".c.meters", -textvariable => \$meters[0]);
+Tkx::grid(".c.meters", -column => 10, -row => 10, -sticky => "we");	
+	
+Tkx::MainLoop();

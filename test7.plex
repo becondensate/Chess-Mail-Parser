@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+use warnings;
+use strict;
+use Tkx;
+
+Tkx::grid( Tkx::ttk__button(".b", -text => "Hello, Joe" ) );
+Tkx::MainLoop();
