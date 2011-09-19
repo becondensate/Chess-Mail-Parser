@@ -32,7 +32,7 @@ my %flat_notes = (
 11 => "G ",
 12 => "Ab "
 );
-my $choicevar;
+my $choice_var;
 my $key_entry;
 my $meta_note;
 my $key_notes;
@@ -58,7 +58,7 @@ Tkx::focus(".c.key");
 Tkx::bind(".", "<Return>", sub {&Get_Key();}); #sub in this row
 my $choice = Tkx::widget->new(".c.combo");
 
-Tkx::ttk__combobox(".c.combo", -textvariable => \$choicevar);
+Tkx::ttk__combobox(".c.combo", -textvariable => \$choice_var);
 
 Tkx::grid(".c.combo", -column => 2, -row => 4, -sticky => "we");
 #$choice->g_bind("Major#", sub { script });
@@ -86,7 +86,7 @@ $line_co = $line_co + 1;
             if ($boo1 < 2) {
             (@array_holder[0..9]) = split(/ /);
                 for ($z = 2; $z <= 8; $z += 1) {
-                #if ($choicevar = /Major#/) { ###need to change this to check box option!!!
+                #if ($choice_var = /Major#/) { ###need to change this to check box option!!!
                 push @notes, $sharp_notes{$array_holder[$z]}, "\t";
                 }
             }
