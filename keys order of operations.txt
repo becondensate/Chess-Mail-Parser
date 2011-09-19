@@ -1,0 +1,6 @@
+keys order of operations
+
+get <STDIN>
+search self lines x - y for <STDIN>,
+read line where it matches, push numbers into array
+print hash key values using array
