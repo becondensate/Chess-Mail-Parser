@@ -56,10 +56,7 @@ Tkx::grid( Tkx::ttk__label(".c.enter_key_label", -text => "Enter key to find out
 foreach (Tkx::SplitList(Tkx::winfo_children(".c"))) { Tkx::grid_configure($_, -padx => 5, -pady => 5); }
 Tkx::focus(".c.key");
 Tkx::bind(".", "<Return>", sub {&Get_Key();}); #sub in this row
-my $choice;
-#
-#
-$choice = Tkx::widget->new(".c.combo");
+my $choice = Tkx::widget->new(".c.combo");
 
 Tkx::ttk__combobox(".c.combo", -textvariable => \$choicevar);
 
